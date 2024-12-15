@@ -24,6 +24,20 @@
     color: white;
 }
 
+.App-list {
+    margin-top: 0;
+}
+
+.App-list li {
+    text-align: left;
+}
+
+.App-paragraph {
+    text-align: left;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
 .App-link {
     color: #61dafb;
 }
