@@ -15,10 +15,14 @@ export const round = (value:number, accuracy = 2):number => {
   return Math.round(value * d) / d;
 };
 
+type transformFuncReturnType = {
+  x: number,
+  y: number
+};
 const transformRegexp:RegExp =
   /(matrix\(-?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?, )(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)\)/;
 
-export const getTransformFromCss = (transformCssString:string):object => {
+export const getTransformFromCss = (transformCssString:string):transformFuncReturnType => {
   const data = transformCssString.match(transformRegexp);
   if (!data) return { x: 0, y: 0 };
   return {
@@ -32,7 +36,7 @@ export const getColorContrastValue = ([red, green, blue]:RGBArrType) =>
   // http://www.w3.org/TR/AERT#color-contrast
   Math.round((red * 299 + green * 587 + blue * 114) / 1000);
 
-export const getContrastType = (contrastValue:number):string => (contrastValue > 125 ? 'black' : 'white');
+export const getContrastType = (contrastValue:number):'black'|'white' => (contrastValue > 125 ? 'black' : 'white');
 
 export const shortColorRegExp:RegExp = /^#[0-9a-f]{3}$/i;
 export const longColorRegExp:RegExp = /^#[0-9a-f]{6}$/i;
@@ -55,7 +59,11 @@ export const hex2rgb = (color:string):RGBArrType => {
   return [red, green, blue];
 };
 
-export const getNumberedArray = (arr:number[]):object[] => arr.map((value, number) => ({ value, number }));
+type numberedArrayReturnType = {
+  value: number,
+  number: number
+}[];
+export const getNumberedArray = (arr:number[]):numberedArrayReturnType => arr.map((value, number) => ({ value, number }));
 
 type ToStringArrayParamsType = [{
   value: string|number,
